@@ -50,7 +50,7 @@ bool CAveragedPerceptron::train_machine(CFeatures* data)
 	int32_t num_vec=features->get_num_vectors();
 
 	ASSERT(num_vec==train_labels.vlen)
-	w=SGVector<float64_t>(num_feat);
+	SGVector<float64_t> w(num_feat);
 	float64_t* tmp_w=SG_MALLOC(float64_t, num_feat);
 	float64_t* output=SG_MALLOC(float64_t, num_vec);
 
@@ -101,6 +101,8 @@ bool CAveragedPerceptron::train_machine(CFeatures* data)
 
 	SG_FREE(output);
 	SG_FREE(tmp_w);
+
+	set_w(w);
 
 	return converged;
 }

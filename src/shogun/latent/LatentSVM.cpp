@@ -40,6 +40,7 @@ CLatentLabels* CLatentSVM::apply_latent()
 	if (m_model->get_num_vectors() < 1)
 		return NULL;
 
+	SGVector<float64_t> w = get_w();
 	index_t num_examples = m_model->get_num_vectors();
 	CLatentLabels* hs = new CLatentLabels(num_examples);
 	CBinaryLabels* ys = new CBinaryLabels(num_examples);
@@ -74,6 +75,7 @@ float64_t CLatentSVM::do_inner_loop(float64_t cooling_eps)
 
 	/* copy the resulting w */
 	SGVector<float64_t> cur_w = svm.get_w();
+	SGVector<float64_t> w = get_w();
 	memcpy(w.vector, cur_w.vector, cur_w.vlen*sizeof(float64_t));
 
 	return svm.compute_primal_objective();
